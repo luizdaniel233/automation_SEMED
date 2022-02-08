@@ -1,11 +1,4 @@
-from asyncore import file_dispatcher, read
-from base64 import encode
 import csv
-from email import header
-import encodings
-from http.client import OK
-from mimetypes import init
-from numpy import column_stack
 import pandas as pd
 
 class work_csv:
@@ -14,6 +7,9 @@ class work_csv:
         self.file_path = file_path
         
     
+    def save_csv(self,df):
+        print(df)
+
     def register_csv(self,lista,dicionario,df):
         turma  = dicionario['turma']
         #if len(i) == 1 and dicionario['turma'] == i:
@@ -27,13 +23,14 @@ class work_csv:
                 df[turma][i] = 1
                 break
         
-        with pd.ExcelWriter(self.file_path,mode='w',engine = 'openpyxl') as writer:  
-            df.to_excel(writer, sheet_name='BASE_FUND I')
+        '''with pd.ExcelWriter(self.file_path,mode='w',engine = 'openpyxl') as writer:  
+            df.to_excel(writer, sheet_name='BASE_FUND I')'''
         
         return df
                     
     
     def filter_csv(self,values):
+        print(values)
         options_filter = []
         all_data_filter = []
         
@@ -43,7 +40,7 @@ class work_csv:
         conteudo = str(values['textbox']).upper()
         
         #f_csv = self.o_csv2(self,"new_plan.csv")
-        with open('new_plan.csv', newline='') as f:
+        with open('new_plan.csv', newline='',encoding="utf8") as f:
             reader = csv.reader(f)
             for row in reader:
                 s_row = str(row)
@@ -64,13 +61,13 @@ class work_csv:
         
         #name_plan = "3º_4º BIMESTRE_NOVA_FERRAMENTA 1º AO 5º _CURRICULO_ AUTOMATIZADA_29.10.21_FINAL (CORRIGIDA) (1).xlsx"
         df = pd.read_excel(file_path,sheet_name='BASE_FUND I',header=1, engine='openpyxl')
-        df.to_csv(want_name,index = None,header = True)
+        df.to_csv(f"C:/Users/luiz.santos/Desktop/automation_SEMED/{want_name}",index = None,header = True)
 
     def o_csv2(self,name):
         
         #self.c_csv("3º_4º BIMESTRE_NOVA_FERRAMENTA 1º AO 5º _CURRICULO_ AUTOMATIZADA_29.10.21_FINAL (CORRIGIDA) (1).xlsx",name)
         
-        df2 = pd.read_csv(f'/home/luiz/Área de Trabalho/work-mother/data/{name}',sep=',', index_col=0)
+        df2 = pd.read_csv(f"C:/Users/luiz.santos/Desktop/automation_SEMED/{name}",sep=',', index_col=0)
         df2 = df2.reset_index()
         df2 = df2.sample(frac=1) #shuffle rows from DF2
         return df2
@@ -79,7 +76,7 @@ class work_csv:
     
         #self.c_csv("3º_4º BIMESTRE_NOVA_FERRAMENTA 1º AO 5º _CURRICULO_ AUTOMATIZADA_29.10.21_FINAL (CORRIGIDA) (1).xlsx",name)
         
-        df2 = pd.read_csv(f'/home/luiz/Área de Trabalho/work-mother/data/{name}',sep=',', index_col=0)
+        df2 = pd.read_csv(f"C:/Users/luiz.santos/Desktop/automation_SEMED/{name}",sep=',', index_col=0)
         df2 = df2.reset_index()
         df2 = df2.sample(frac=1) #shuffle rows from DF2
 

@@ -1,7 +1,6 @@
 #!/usr/bin/python3.6
 
 import PySimpleGUI as sg
-
 from  convert_csv import work_csv
 
 all_data_filter = []
@@ -71,6 +70,7 @@ class interface:
             break
         
         if window == janela2  and event == "Sair":
+            work_csv.save_csv(work_csv,df)
             break
             
         if window == janela1 and event == "Escolha a Planilha":
